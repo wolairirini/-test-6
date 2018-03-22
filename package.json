@@ -114,5 +114,16 @@
     "less": "^3.0.1",
     "less-loader": "^4.1.0"
   },
-  "homepage": "."
+  "homepage": "http://.",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolairirini/React-project-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wolairirini/React-project-template/issues"
+  }
 }

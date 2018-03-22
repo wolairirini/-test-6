@@ -14,12 +14,18 @@ export function asyncadd(num){
         });
         return setTimeout(()=>{
             if(parseFloat(num) !== Number(num)){
-                Modal.error({title:"error!",content:"must be number"})
-            }
-            dispatch({
+                Modal.error({title:"error!",content:"must be number"});
+                dispatch({
+                    type:"ASYNCADD_FAILED",
+                        payload:num
+                })
+            }else{
+                dispatch({
                 type:"ASYNCADD_SUCCESS",
-                payload:num
-            })
+                    payload:num
+                })
+            }
+            
         },2000)
     }
 }

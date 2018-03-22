@@ -12,6 +12,8 @@ export default function(state=initState,action={}){
             return Object.assign({},state,{isloading:true});
         case "ASYNCADD_SUCCESS":
             return Object.assign({},state,{isloading:false,num:state.num+payload});
+        case "ASYNCADD_FAILED":
+            return Object.assign({},state,{isloading:false,num:state.num});
         default:
             return state;
     }
