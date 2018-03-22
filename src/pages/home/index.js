@@ -19,7 +19,7 @@ export default class Home extends Component{
                 <Input ref="input" />
                 <Button onClick={()=>add(this.refs.input.input.value)} >Add</Button>
                 <Button onClick={()=>globaladd(this.refs.input.input.value)} >GLOBAL_Add</Button>
-                <Button loading={isloading} onClick={()=>asyncadd(this.refs.input.input.value)} >Acync_Add</Button>
+                <Button loading={isloading} onClick={()=>asyncadd(this.refs.input.input.value)} >Async_Add</Button>
             </div>
         )
     }
