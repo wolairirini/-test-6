@@ -1,16 +1,17 @@
 import React,{Component} from "react";
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getText} from './action';
+import {getText,getObj} from './action';
 
 @connect(
-    state=>({text:state.find.text}),
-    dispatch=>bindActionCreators({getText},dispatch)
+    state=>({text:state.find.text,lists:state.find.lists}),
+    dispatch=>bindActionCreators({getText,getObj},dispatch)
 )
 
 export default class Find extends Component{
     render(){
-        const {text} = this.props;
+        const {text,lists} = this.props;
+        console.log(lists)
         return(
             <div className="find" >
                this is Find
@@ -20,7 +21,8 @@ export default class Find extends Component{
         )
     }
     componentDidMount(){
-        const {getText} = this.props;
+        const {getText,getObj} = this.props;
         getText();
+        getObj();
     }
 }

@@ -6,7 +6,7 @@ export function add(num){
         payload:num
     }
 }
-//异步方法
+//异步方法 
 export function asyncadd(num){
     return (dispatch)=>{
         dispatch({

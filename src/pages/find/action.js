@@ -4,6 +4,30 @@ Mock.mock('/gettext',{
     text:'string'
 })
 
+Mock.mock('/getobj',{
+    'lists':[{name:'dick',age:11,sex:'male'}]
+})
+
+export function getObj(){
+    axios.get('/test1').then(res=>{
+        console.log(res)
+    })
+    return (dispatch)=>{
+        return axios({url:'/getobj'})
+        .then(res=>{
+            dispatch({
+                type:'GETOBJ_SUCCESS',
+                payload:res.data.lists
+            })
+        }).catch(err=>{
+            console.log(err);
+            dispatch({
+                type:'GETOBJ_FAIL'
+            })
+        })
+    }
+}
+
 export function getText(){
     return (dispatch)=>{
         return axios({
