@@ -1,0 +1,93 @@
+.header{
+    width: 100%;
+    height: 3.82rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../../img/index/nav.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    .logo{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding-top: .8rem /* 50/16 */;
+        img{
+            width: 28.87421875rem;
+            height: 2.087828125rem;
+        }
+    }
+    .nav{
+        height: 100%;
+        display: flex;
+        &-item{
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            margin-right: 2.49rem;
+            &:last-of-type{
+                margin: 0;
+            }
+            &>a{
+                font-size: .8rem;
+                display: block;
+                color: white;
+            }
+            &::before{
+                position: absolute;
+                content: "";
+                width: 0rem /* 0/16 */;
+                height: .09rem ;
+                background-color: #8BF7FF;
+                left: 0rem /* 0/16 */;
+                bottom: 0.48rem /* 0/16 */;
+                -webkit-transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+                transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            }
+            &:hover{
+                &::before{
+                    width: 100%;
+                }
+                &>a{
+                    color: #8BF7FF;
+                }
+            }
+        }
+    }
+    .share{
+        margin-left: 3rem;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        img{
+            width: 1.244444444444443rem;
+            height: 1.244444444444443rem;
+        }
+        &-weibo{}
+        &-weixin{
+            margin-left: 1rem;
+        }
+    }
+}
+
+// antd
+.ant-dropdown-menu{
+    background: url(../../img/index/down_content.png);
+    border-radius: 0!important;
+    margin-top: -.36rem!important;
+}
+.ant-dropdown-menu-item{
+    a{
+        font-size: .7rem!important;
+        color: #fff!important;
+    }
+}
+
+.ant-dropdown-menu-item-active{
+    background: transparent!important;
+    a{
+        color: #8BF7FF !important;
+    }
+}

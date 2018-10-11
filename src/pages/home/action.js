@@ -1,31 +1,58 @@
-import {Modal} from "antd";
-
-export function add(num){
-    return {
-        type:"ADD_NUM",
-        payload:num
+import axios from 'axios';
+// 获取外网信息
+export function get_wan_status(){
+    return (dispatch)=>{
+        return axios({
+            url:'/api/wan/get_status',
+        }).then(data=>{
+            dispatch({
+                type:'GETSTATUS_SUCCESS',
+                payload:data
+            })
+        }).catch(err=>{
+            // console.log(err)
+            dispatch({
+                type:'GETSTATUS_FAILED'
+            })
+        })
     }
 }
-//异步方法 
-export function asyncadd(num){
+
+// 获取加速信息
+export function get_svpn_status(){
     return (dispatch)=>{
-        dispatch({
-            type:"ASYNCADD_PENDING",
-        });
-        return setTimeout(()=>{
-            if(parseFloat(num) !== Number(num)){
-                Modal.error({title:"error!",content:"must be number"});
-                dispatch({
-                    type:"ASYNCADD_FAILED",
-                        payload:num
-                })
-            }else{
-                dispatch({
-                type:"ASYNCADD_SUCCESS",
-                    payload:num
-                })
-            }
-            
-        },2000)
+        return axios({
+            url:'/api/svpn/get_status',
+        }).then(data=>{
+            dispatch({
+                type:'GETSVPNSTATUS_SUCCESS',
+                payload:data
+            })
+        }).catch(err=>{
+            // console.log(err)
+            dispatch({
+                type:'GETSVPNSTATUS_FAILED'
+            })
+        })
+    }
+}
+
+// 获取内网信息
+export function get_lan_status(){
+    return (dispatch)=>{
+        return axios({
+            url:'/api/lan/get_status',
+        }).then(data=>{
+            console.log(data)
+            dispatch({
+                type:'GETLANSTATUS_SUCCESS',
+                payload:data
+            })
+        }).catch(err=>{
+            // console.log(err)
+            dispatch({
+                type:'GETLANSTATUS_FAILED'
+            })
+        })
     }
 }

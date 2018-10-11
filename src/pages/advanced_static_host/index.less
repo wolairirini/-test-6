@@ -1,0 +1,103 @@
+.static_host{
+    .title{
+        width: 100%;
+        height: 2.36rem;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding-left: 1.33rem;
+        font-size: .71rem;
+        color: #8BF7FF;
+        background: url(../../img/systemtools/header.png);
+        background-repeat: no-repeat;
+        background-size: 39.5rem 100%;
+        background-position: center .28rem;
+        margin-bottom: .71rem;
+    }
+    .article{
+        width: 100%;
+        box-sizing: border-box;
+        padding: .5rem 1.8rem;
+        &>p{
+            color: #fff;
+            font-size: .67rem;
+        }
+    }
+    // antd样式修改
+    .ant-btn{
+        padding:0 .8rem;
+        height: 2rem;
+        border-radius: 0;
+        border: none;
+        background: url(../../img/index/btn_md.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transition: all .2s;
+        &::after{
+            display: none;
+        }
+        &.ant-btn-loading::before{
+            display: none;
+        }
+        &:hover{
+            span{
+                color: #8BF7FF;
+            }
+            background-image: url(../../img/index/btn_md_active.png);
+        }
+        span{
+            font-size: .67rem;
+            color: #fff;
+            transition: all .2s;
+        }
+    }
+}
+
+
+.modal_shost_add{
+    .input-group{
+        display: flex;
+        align-items: center;
+        position: relative;
+        &:not(:first-of-type){
+            margin-top: 20px;
+        }
+        label{
+            font-size: 14px;
+            color: #828282;
+            width: 97px;
+            text-align: right;
+            padding-right: 11px;
+            box-sizing: border-box;
+        }
+        input{
+            width: 290px;
+            height: 31px;
+            border: 1px solid #DCDCDC;
+        }
+        &>.icon{
+            color: red;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+        &>.alert{
+            position: absolute;
+            color: red;
+            font-size: 12px;
+            left: 97px;
+            top: 31px;
+        }
+    }
+    .ant-modal-footer{
+        display: flex;
+        justify-content: center;
+        button{
+            width: 84px;
+            border: #5FC7CE 1px solid;
+            &.ant-btn-primary{
+                margin-right: 60px;
+                background: #5FC7CE;
+            }
+        }
+    }
+}

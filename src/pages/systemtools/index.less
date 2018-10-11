@@ -1,0 +1,69 @@
+.systemtools{
+    .title{
+        width: 100%;
+        height: 2.36rem;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding-left: 1.33rem;
+        font-size: .71rem;
+        color: #8BF7FF;
+        background: url(../../img/systemtools/header.png);
+        background-repeat: no-repeat;
+        background-size: 39.5rem 100%;
+        background-position: center .28rem;
+        margin-bottom: .71rem;
+    }
+    &-content{
+        width: 100%;
+        padding: 2.8rem 4rem 0;
+        .row{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            &:not(:first-of-type){
+                margin-top: 2.2rem;
+            }
+            .col{
+                width: 9rem;
+                height: 9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                background-image: url(../../img/systemtools/small.png);
+                &.col-lg{
+                    width: 20rem;
+                    background-image: url(../../img/systemtools/big.png);
+                }
+                &>img{
+                    margin-top: 1.78rem;
+                }
+                &>h2{
+                    font-size: .71rem;
+                    color: #fff;
+                    margin-top: .1rem;
+                }
+                &>.btn{
+                    margin-top: .6rem;
+                    width: 6.311111111111105rem;//142
+                    height: 2.311111111111109rem;//52
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: .67rem;
+                    color: #fff;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    background-image: url(../../img/systemtools/btn.png);
+                    transition: all .2s;
+                    &:hover{
+                        background-image: url(../../img/systemtools/btn_active.png);
+
+                    }
+                }
+            }
+        }
+    }
+}

@@ -13,6 +13,9 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const CompressionPlugin = require("compression-webpack-plugin");
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
@@ -54,7 +57,8 @@ module.exports = {
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
-  devtool: shouldUseSourceMap ? 'source-map' : false,
+  // devtool: shouldUseSourceMap ? 'source-map' : false,
+  devtool: false,
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
@@ -245,6 +249,7 @@ module.exports = {
     // in `package.json`, in which case it will be the pathname of that URL.
     new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
+    
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -333,6 +338,22 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new ImageminPlugin({
+      disable: process.env.NODE_ENV !== 'production', 
+      pngquant: {
+        quality: '10-20'
+      }
+    }),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    new BundleAnalyzerPlugin(),
+    
+    
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

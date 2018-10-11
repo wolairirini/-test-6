@@ -1,0 +1,86 @@
+.side_index{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .top{
+        width: 100%;
+        height: 17.78rem;
+        background-image: url(../../img/index/ltop.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title{
+            margin-left: .93rem;
+            margin-top: .98rem;
+            margin-bottom: 1.5rem;
+            align-self: flex-start;
+            font-size: .71rem;
+            color: #8BF7FF;
+        }
+        .describe{
+            font-size: 0.71rem;
+            color: #fff;
+            line-height: .8rem;
+            &:not(:first-of-type){
+                margin-top: .5rem;
+            }
+            a{
+                color: #8BF7FF;                
+            }
+        }
+        img{
+            margin-top: 1rem;
+            width: 6.13021875rem;
+            height: 6.085796875rem;
+        }
+        .tips{
+            margin-top: .5rem;
+            font-size: 0.62rem;
+            color: #FFFFFF;
+        }
+    }
+    .bottom{
+        width: 100%;
+        height: 9.6rem;
+        background-image: url(../../img/index/lbottom.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title{
+            margin-left: .93rem;
+            margin-top: .98rem;
+            margin-bottom: 1.5rem;
+            align-self: flex-start;
+            font-size: .71rem;
+            color: #8BF7FF;
+        }
+        .describe{
+            font-size: 0.71rem;
+            color: #fff;
+            line-height: .8rem;
+        }
+        .btn{
+            margin-top: .5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 7.151921875rem;
+            height: 2.6653125rem;
+            font-size: .8rem;
+            color: #8BF7FF;
+            background-image: url(../../img/index/btn.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            transition: all .2s;
+            &:hover{
+                background-image: url(../../img/index/btn_active.png);
+            }
+        }
+    }
+}

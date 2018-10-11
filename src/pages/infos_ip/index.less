@@ -1,0 +1,77 @@
+.infos{
+    .title{
+        width: 100%;
+        height: 2.36rem;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding-left: 1.33rem;
+        font-size: .71rem;
+        color: #8BF7FF;
+        background: url(../../img/systemtools/header.png);
+        background-repeat: no-repeat;
+        background-size: 39.5rem 100%;
+        background-position: center .28rem;
+        margin-bottom: .71rem;
+    }
+    .article{
+        width: 100%;
+        box-sizing: border-box;
+        padding: .5rem 1.8rem;
+        &>p{
+            color: #fff;
+            font-size: .67rem;
+        }
+    }
+    .download-table-xls-button{
+        outline: none;
+        cursor: pointer;
+        border: 0;
+        box-sizing: border-box;
+        padding: .6rem .5rem;
+        font-size: .71rem;
+        background-image: url(../../img/index/btn_md.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        color: #fff;
+        &:hover{
+            color: #8BF7FF;
+        }
+    }
+    // antd样式修改
+    .ant-btn{
+        outline: none;
+        border-radius: 0;
+        border: none;
+        padding:0 0.8rem;
+        height: 1.8rem;
+        background: url(../../img/index/btn_md.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transition: all .2s;
+        &::after{
+            display: none;
+        }
+        &:not(:first-of-type){
+            margin-left: .3rem;
+        }
+        &:nth-of-type(2){
+            padding: 0 1.2rem
+        }
+        &.ant-btn-loading::before{
+            display: none;
+        }
+        &:hover{
+            span{
+                color: #8BF7FF;
+            }
+            background-image: url(../../img/index/btn_md_active.png);
+        }
+        span{
+            font-size: .67rem;
+            color: #fff;
+            transition: all .2s;
+        }
+    }
+
+}

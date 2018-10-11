@@ -9,9 +9,6 @@ Mock.mock('/getobj',{
 })
 
 export function getObj(){
-    axios.get('/test1').then(res=>{
-        console.log(res)
-    })
     return (dispatch)=>{
         return axios({url:'/getobj'})
         .then(res=>{

@@ -1,0 +1,34 @@
+html{
+  // 0.0444444444444444
+    @firstViewportWidth: 1920px;     //默认UI设计尺寸
+    @defaultFontSize: 22.5px;          //默认初始fontsize大小
+    @media screen and (width: @firstViewportWidth){  //绑定到没听查询
+      font-size: @defaultFontSize;
+      min-width: 100%;
+    };
+
+ //根据传入的屏幕尺寸@viewportWidth计算出与初始@firstViewportWidth的比例，然后将默认的fontsize> @defaultFontSize对应的放大缩小
+   .media(@viewportWidth,@firstViewportWidth:1920px){
+      @media screen and (min-width: @viewportWidth) {
+      font-size: @defaultFontSize / (@firstViewportWidth /   
+  @viewportWidth)!important;
+  }
+    };
+    // .media(1024px);     //所要设配的屏幕尺寸
+    .media(1280px);
+    .media(1366px);
+    .media(1440px);
+    .media(1600px);
+    .media(1920px);
+  }
+  // @media screen and (max-width: 1024px) {
+  //   html {
+  //     font-size: 12px !important;
+  //   }
+  // }
+  
+  @media screen and (max-width: 1280px) {
+    html {
+      font-size: 15px !important;
+    }
+  }

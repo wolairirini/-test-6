@@ -1,3 +1,153 @@
 .home{
-   
+    box-sizing: border-box;
+    padding: .22rem 1.51rem;
+    &>div{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        &:not(:last-of-type){
+            border-bottom: .04rem solid rgba(213,214,255,.23);
+        }
+        &>div{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            .icon_box{
+                display: flex;
+                align-items: center;
+                width: 8rem;
+            }
+            .title{
+                font-size: .89rem;
+                color: #EAEAEA;
+                margin: 0;
+                margin-left: .89rem;
+                width: 6.23rem;
+            }
+            .content{
+                flex: 1;
+                display: flex;
+                align-items: center;
+                &.error{
+                    p{
+                        color: #ff1f1f;
+                    }
+                }
+                p{
+                    font-size: 0.62rem;
+                    color: #EAEAEA;
+                }
+                span.show{
+                    display: block;
+                }
+                span.hide{
+                    display: none;
+                }
+            }
+        }
+    }
+    .ww{
+        align-items: center;
+        height: 5.02rem;
+        &>div{
+            .icon{
+                width: 1.776875rem;
+                height: 1.776875rem;
+            }
+            .content{
+                p{
+                    text-align: left!important;
+                    width: 8.5rem;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    &:not(:first-of-type){
+                        margin-left: 1rem;
+                    }
+                }
+            }
+        }
+        .img_box{
+            width: 5.77484375rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .status{
+                margin-right: .1rem;
+            }
+        }
+        
+    }
+    .js{
+        align-items: center;
+        height: 5.02rem;
+        .icon{
+            width: 1.51034375rem;
+            height: 1.51034375rem;
+        }
+        .content{
+            p:not(:last-of-type){
+                margin-right: 1.91rem;
+            }
+        }
+        .btn{
+            color: #8BF7FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .71rem;
+            width: 5.77484375rem;
+            height: 2.265515625rem;
+            background-image: url(../../img/index/btn_detail.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            transition: all .2s;
+            &:hover{
+                background-image: url(../../img/index/btn_detail_active.png);
+            }
+        }
+    }
+    .wx{
+        margin-top: 1.78rem;
+        &>div{
+            align-items: flex-start;
+            .ibox{
+                display: flex;
+                align-items: center;
+                width: 8rem;
+                .icon{
+                    width: 1.68803125rem;
+                    height: 1.51034375rem;
+                }
+            }
+            ul{
+                box-sizing: border-box;
+                li{
+                    color: #EAEAEA;
+                    font-size: .62rem;
+                    line-height: 1.33rem;
+                    &.ssid{
+                        color: #8BF7FF;
+                        font-size: .71rem;
+                    }
+                    &.ip{
+                        display: flex;
+                        align-items: center;
+                        span{
+                            margin-left: 1.91rem;
+                            display: flex;
+                            align-items: center;
+                            img{}
+                            a{
+                                color: #8BF7FF;
+                                text-decoration: underline!important;
+                                font-size: .67rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
 }

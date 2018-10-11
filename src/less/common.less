@@ -1,7 +1,7 @@
 /*重置样式*/
 html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img {
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 fieldset,img {
     border: 0
@@ -42,3 +42,189 @@ textarea {
 table {
     border-collapse: collapse
 }
+
+// 自定义
+html,body{
+    min-width: 1024px;
+}
+ul{
+    margin-bottom: 0!important;
+}
+a{
+    text-decoration: none!important;
+}
+
+/* 谷歌输入框有cookie变黄 */
+input:-webkit-autofill {
+    // -webkit-box-shadow: 0 0 0px 1000px #1a1919 inset !important;
+    // -webkit-text-fill-color: rgba(255,255,255,1)!important;
+}
+// 禁用number格式箭头
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+ }
+input[type="number"]{-moz-appearance:textfield;};
+
+// antd修改
+// notification
+.ant-notification {
+    position: absolute;
+    margin: 0 !important;
+    top: 3.82rem!important;
+    // width: 100%;
+    width: 53.33rem;
+    left: 50%!important;
+    margin-left: -26.665rem !important;
+    background: transparent!important;
+    z-index: 0!important;
+    .ant-notification-notice{
+        width: 100%;
+        padding: .5rem !important;
+        // background-image: url(../img/index/main_bg.png);
+        // background-repeat: no-repeat;
+        // background-size: 100% 100%;
+        // background-color: transparent!important;
+        background: transparent!important;
+        box-shadow: none;
+        
+        .ant-notification-notice-close{
+            display: none;
+        }
+        .ant-notification-notice-content{
+            &>div{
+                // display: flex;
+                // flex-direction: column;
+                // align-items: center;
+                .ant-notification-notice-message{
+                    font-size: .71rem;
+                    height: 1rem;
+                    font-weight: bold;
+                    margin: 0 auto !important;
+                    display: none;
+                }
+                .ant-notification-notice-description{
+                    p{
+                        padding-left: 1rem;
+                        font-size: .71rem;
+                        color: #FF6347;
+                        a{
+                            font-size: .71rem;
+                        }   
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+// table
+
+.ant-table-wrapper{
+    .ant-table-placeholder{
+        background: transparent!important;
+        color: #fff!important;
+        border: #4D6779 .04rem solid!important;
+    }
+    table{
+        border: 0!important;
+    }
+    .ant-table-title{
+        height: 2.09rem!important;
+        padding: 0!important;
+        display: flex!important;
+        align-items: center!important;
+        justify-content: center!important;
+        // border: #4D6779 .04rem solid!important;
+        border: 0!important;
+        .table_title{
+            color: #8BF7FF!important;
+            font-size: .71rem!important;
+        }
+    }
+    .ant-table-header{
+        overflow-x: initial!important;
+        margin-bottom: 0!important;
+        background: transparent!important;
+        &::-webkit-scrollbar{
+            visibility: hidden!important;
+        }
+    }
+    .ant-table-thead{
+        height: 2.09rem!important;
+        tr{
+            height: 2.09rem!important;
+            th{
+                height: 2.09rem!important;
+                padding: 0 !important;
+                background: #374E5C!important;
+                color: #fff!important;
+                text-align: center!important;
+                border: #4D6779 .04rem solid!important;
+                font-size: .67rem!important;
+                span{
+                    width: 100%!important;
+                    height: 100%!important;
+                    display: flex!important;
+                    justify-content: center!important;
+                    align-items: center!important;
+                    .ant-table-column-sorter{
+                        margin-top: -.6rem!important;
+                        span{
+                            &.on{
+                                i{
+                                    color: aqua!important;
+                                }
+                            }
+                            i{
+                                color: #fff!important
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .ant-table-body{
+        background: transparent!important;
+        &::-webkit-scrollbar {
+            background: transparent!important;
+            &-track{
+                background: transparent!important;
+            }
+            &-thumb{
+                background: #374E5C!important;
+                border: .02rem solid #4D6779!important;
+                opacity: .5!important;
+                &:hover{
+                }
+            }
+        }
+        
+    }
+    .ant-table-tbody{
+        tr{
+            td{
+                height: 2.09rem!important;
+                color: #fff !important;
+                padding: 0 !important;
+                text-align: center!important;
+                border: #4D6779 .04rem solid!important;
+                font-size: .67rem!important;
+                background: rgba(55,78,92,.3)!important;
+            }
+            // &:nth-child(2n){
+            //     td{
+            //         background: rgba(55,78,92)!important;
+            //     }
+            // }
+            &:hover{
+                td{
+                    color: #fff!important;
+                    background: #4D6779!important;
+                }
+            }
+        }
+    }
+}
+ 
