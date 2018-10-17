@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import {Spin} from "antd";
 import {wirelessGet} from "./action";
 import NetWifiHalf from "../net_wifi_half";
 import NetWifiFive from "../net_wifi_five";
@@ -18,8 +19,24 @@ export default class NetWifi extends Component{
         }
     }
     render(){
+        const {infos} = this.props;
         let {proto_check} = this.state;
-
+        if(!Object.keys(infos).length){
+            return (
+                <Spin className="net_outside" spinning={true} size='large' tip="Loading...">
+                <div className="net_wifi">
+                    <h2 className="title">无线设置</h2>
+                    <div className="input-group">
+                        <label>设置：</label>
+                        <div className="types">
+                            <a href="javascript:void(0)"><input type="checkbox"/>无线2.4G</a>
+                            <a href="javascript:void(0)"><input type="checkbox"/>无线5G</a>
+                        </div>
+                    </div>
+                </div>
+                </Spin>
+            )
+        }
         return(
             <div className="net_wifi">
                 <h2 className="title">无线设置</h2>

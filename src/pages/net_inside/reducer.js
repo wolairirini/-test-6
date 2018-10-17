@@ -9,7 +9,7 @@ export default function(state=initState,action={}){
     switch(type){
         // 获取当前内网配置
         case 'LANGET_SUCCESS':
-            return Object.assign({},state,{infos:payload});
+            return Object.assign({},state,{infos:payload||state.infos});
         case "LANGET_FAILED":
             return Object.assign({},state,{infos:state.infos});
         // 内网口设置

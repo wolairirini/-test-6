@@ -193,11 +193,9 @@ input[type="number"]{-moz-appearance:textfield;};
                 background: transparent!important;
             }
             &-thumb{
-                background: #374E5C!important;
-                border: .02rem solid #4D6779!important;
+                background: #4D6779!important;                
+                // border: .02rem solid rgba(139, 247, 255, .2)!important;
                 opacity: .5!important;
-                &:hover{
-                }
             }
         }
         
@@ -211,7 +209,7 @@ input[type="number"]{-moz-appearance:textfield;};
                 text-align: center!important;
                 border: #4D6779 .04rem solid!important;
                 font-size: .67rem!important;
-                background: rgba(55,78,92,.3)!important;
+                background: rgba(55,78,92,1)!important;
             }
             // &:nth-child(2n){
             //     td{
@@ -227,4 +225,16 @@ input[type="number"]{-moz-appearance:textfield;};
         }
     }
 }
- 
+
+//  进度条
+.modal_process{
+    .ant-progress>div{
+        display: flex;
+        align-items: center;
+        .ant-progress-text{
+            width: 2rem!important;
+            font-size: .67rem!important;
+        }
+    }
+    
+}

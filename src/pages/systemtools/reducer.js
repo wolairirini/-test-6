@@ -10,6 +10,7 @@ const initState = {
     visible_sleeper:false,
     loading_sleeper:false,
     infos_sleeper:{},
+    set_sleeper:false,
     // levelup
     levelup:false,
     visible_levelup:false,
@@ -46,14 +47,16 @@ export default function(state=initState,action={}){
             return Object.assign({},state,{visible_sleeper:true});
         case "SLEEPER_CLOSE":
             return Object.assign({},state,{visible_sleeper:false});
+        case 'SLEEPERGET_PENDING':
+            return Object.assign({},state,{set_sleeper:false});
         case 'SLEEPERGET_SUCCESS':
-            return Object.assign({},state,{infos_sleeper:payload});
+            return Object.assign({},state,{infos_sleeper:payload||state.payload});
         case "SLEEPERGET_FAILED":
             return Object.assign({},state,{infos_sleeper:state.payload});
         case 'SLEEPERSET_PENDING':
             return Object.assign({},state,{loading_sleeper:true});
         case "SLEEPERSET_SUCCESS":
-            return Object.assign({},state,{loading_sleeper:false,visible_sleeper:false});
+            return Object.assign({},state,{loading_sleeper:false,visible_sleeper:false,set_sleeper:true});
         case "SLEEPERSET_FAILED":
             return Object.assign({},state,{loading_sleeper:false});
         // 固件升级

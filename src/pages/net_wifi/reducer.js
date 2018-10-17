@@ -9,7 +9,7 @@ export default function(state=initState,action={}){
     switch(type){
         // 获取当前外网配置
         case 'WIRELESSGET_SUCCESS':
-            return Object.assign({},state,{infos:payload});
+            return Object.assign({},state,{infos:payload||state.infos});
         case "WIRELESSGET_FAILED":
             return Object.assign({},state,{infos:state.infos});
         // 外网口设置

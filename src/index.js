@@ -4,8 +4,8 @@ import "./index.less";
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
-import {notification,Modal,message,Button} from 'antd';
-const {confirm} = Modal
+import {notification,message} from 'antd';
+import Reboot from "./components/reboot";
 
 // 正则校验
 global.exp = {
@@ -62,56 +62,39 @@ axios.interceptors.response.use(res => {
                     key:'reboot',
                     placement:'topLeft',
                     message: '您当前的配置修改，需要设备重启后才能生效！',
-                    description: (<p>您当前的配置修改，需要设备重启后才能生效！<Button type={'primary'} onClick={Reboot}>立即重启</Button></p>),
+                    description: (<Reboot/>),
                 });
             }, 500);
         }
         // 成功
-        // console.log(res)
+        // console.log(res);
         return res.data.data;
     }else if(res.data.meta.code===401){
         // token失效或者过期
-        sessionStorage.removeItem('userinfo');
-        window.location.href='/login';
         throw Error(res.data.meta.msg || 'token无效或过期');
     }else {
         // 其他报错
-        throw Error(res.data.meta.msg || '服务异常');
+        const err = new Error(res.data.meta.msg || '服务异常')
+        err.res = res;
+        throw err;
     }
 },err=>{
-    if(err.response.status===401){
-        // token失效或者过期
-        sessionStorage.removeItem('userinfo');
-        window.location.href='/#/login';
+    // 请求失败
+    console.dir(err);
+    if(err.config.url===axios.defaults.baseURL+"/api/usr/need_reboot"){
+        return Promise.reject(err);
+    }else if(err.config.url===axios.defaults.baseURL+"/api/usr/nginx_ready"){
+        return Promise.reject(err);
     }
+
+    sessionStorage.removeItem('userinfo');
+    message.error('请求失败，请重新登录');
+    window.location.href='/#/login';
+    return Promise.reject(err);
+    
 })
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
 
-function Reboot(){
-    // notification.close('reboot');
-    confirm({
-        className:'confirm',
-        title: '确认重启？',
-        okText:'确定',
-        cancelText:'取消',
-        maskClosable:false,
-        onOk() {
-            sessionStorage.removeItem('reboot');
-            return axios({
-                url:'/api/system/reboot',
-            }).then(data=>{
-                message.success('重启成功');
-                setTimeout(()=>{
-                    window.location.href='/#/login';
-                },200);
-            }).catch(err=>{
-                console.log(err);
-                message.error(err.message);
-            })
-        },
-        onCancel() {
-        },
-    });
-}
+// import "./components/EditableCell";

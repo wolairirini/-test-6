@@ -28,16 +28,63 @@ export default class NetOutside extends Component{
     render(){
         const {infos,loading} = this.props;
         let {ipaddr,netmask,startip,limit,leasetime,dhcp_enable,check_ipaddr,check_leasetime,check_limit,check_netmask,check_startip} = this.state;
-        // console.log(infos)
+        if(!Object.keys(infos).length){
+            return (
+                <Spin className="net_outside" spinning={true} size='large' tip="Loading...">
+                <div className="net_inside">
+                    <h2 className="title">LAN口设置</h2>
+                    <form>
+                        <div className="input-group">
+                            <label>IP地址：</label>
+                            <input type="text" />
+                            <span className='icon'>*</span>
+                        </div>
+                        <div className="input-group">
+                            <label>子网掩码：</label>
+                            <input type="text" />
+                            <span className='icon'>*</span>
+                        </div>
+                        <div className="input-group dhcp">
+                            <label>DHCP：</label>
+                            <div>
+                                <Switch className='switch' checked={false}/>
+                                <p>关闭DHCP后，此网段的无线和有线终端都不能自动获取IP地址，在终端上手动指定IP地址才能连通路由器，请谨慎操作。</p>
+                            </div>
+                        </div>
+                        <div className="input-group">
+                            <label>起始IP：</label>
+                            <input type="text" />
+                            <span className='icon'>*</span>
+                        </div>
+                        <div className="input-group">
+                            <label>容量：</label>
+                            <input type="number" />
+                            <span className='icon'>*</span>
+                        </div>
+                        <div className="input-group">
+                            <label>租期：</label>
+                            <input type="number" />
+                            <span className="tips">分钟</span>
+                            <span className='icon'>*</span>
+                        </div>
+                        <div className="btns">
+                            <button type="submit" className="btns-ok">确定</button>
+                            <button type="reset" className="btns-reset">取消</button>
+                        </div>
+                    </form>
+                </div>
+                </Spin>
+            )
+        }
         return(
-            <Spin style={{top:'0%'}} spinning={loading} size='large' tip="Loading...">
+            <Spin spinning={loading} size='large' tip="Loading...">
 
             <div className="net_inside">
                 <h2 className="title">内网设置</h2>
                 <form onSubmit={(event)=>this.handleSubmit(event)}>
                     <div className="input-group">
-                        <label>本机IP：</label>
-                        <input requireds name='ipaddr' ref='ipaddr' onChange={(e)=>this.handleipaddrChange(e.target.value)} value={ipaddr!==null?ipaddr:infos.ipaddr} type="text" />
+                        <label>IP地址：</label>
+                        <input required name='ipaddr' ref='ipaddr' onChange={(e)=>this.handleipaddrChange(e.target.value)} value={ipaddr!==null?ipaddr:infos.ipaddr} type="text" />
                         <span className='icon'>*</span>
                         <p style={{display:check_ipaddr?'block':'none'}} className='alert'>IP地址格式错误</p>
                     </div>

@@ -5,10 +5,10 @@ import { Menu, Dropdown, Icon } from 'antd';
 const networksettings = (
     <Menu style={{top:"1.12rem",display:'flex'}}>
       <Menu.Item style={{height:'3rem',display:'flex',alignItems:'center',padding:'0 1rem'}} key="0">
-        <Link to="/net/outside">外网设置</Link>
+        <Link to="/net/outside">WAN口设置</Link>
       </Menu.Item>
       <Menu.Item style={{height:'3rem',display:'flex',alignItems:'center',padding:'0 1rem'}} key="1">
-        <Link to="/net/inside">内网设置</Link>
+        <Link to="/net/inside">LAN口设置</Link>
       </Menu.Item>
       <Menu.Item style={{height:'3rem',display:'flex',alignItems:'center',padding:'0 1rem'}} key="2">
         <Link to="/net/wifi">无线设置</Link>
@@ -19,7 +19,7 @@ const networksettings = (
 const advancedsettings = (
     <Menu style={{top:"1.12rem",display:'flex'}}>
       <Menu.Item style={{height:'3rem',display:'flex',alignItems:'center',padding:'0 1rem'}} key="0">
-        <Link to="/advanced/upnp">开启UPnP</Link>
+        <Link to="/advanced/upnp">UPnP设置</Link>
       </Menu.Item>
       <Menu.Item style={{height:'3rem',display:'flex',alignItems:'center',padding:'0 1rem'}} key="1">
         <Link to="/advanced/dmz">DMZ主机</Link>
@@ -64,11 +64,11 @@ export default class Header extends Component{
                 </ul>
                 <ul className="share">
                     <li onMouseLeave={()=>{this.setState({active:''})}} onMouseEnter={()=>{this.setState({active:'weibo'})}} className="share-weibo">
-                        <img src={active=='weibo'?require('../../img/index/weibo_active.png'):require('../../img/index/weibo.png')}/>
+                        <img src={active==='weibo'?require('../../img/index/weibo_active.png'):require('../../img/index/weibo.png')}/>
                         <div></div>
                     </li>
                     <li onMouseLeave={()=>{this.setState({active:''})}} onMouseEnter={()=>{this.setState({active:'weixin'})}} className="share-weixin">
-                        <img src={active=='weixin'?require('../../img/index/weixin_active.png'):require('../../img/index/weixin.png')}/>
+                        <img src={active==='weixin'?require('../../img/index/weixin_active.png'):require('../../img/index/weixin.png')}/>
                         <div></div>
                     </li>
                 </ul>

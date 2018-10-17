@@ -24,6 +24,9 @@ export function handleCancel_Sleeper(){
 // 获取定时重启信息
 export function timeGet(){
     return (dispatch)=>{
+        dispatch({
+            type:'SLEEPERGET_PENDING'
+        })
         return axios({
             url:'/api/system/get_tm_rbt',
         }).then(data=>{

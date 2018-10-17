@@ -10,16 +10,22 @@ import {get_infos_detail} from "./action";
 )
 
 export default class InfosDetail extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            sorter:false
+        }
+    }
     render(){
         const {dataSource} = this.props;
         // console.log(dataSource[0]);
         // console.log(this.columns)
         return(
             <div className="infos infos_detail">
-                <h2 className="title">加速详情&nbsp;—&nbsp;{this.props.match.params.ip}</h2>
+                <h2 className="title">{global.phone_name}&nbsp;—&nbsp;{this.props.match.params.ip}</h2>
                 <div className="article">
                     <a onClick={this.downloadExcel} href='javascript:;' className='download-table-xls-button'>导出报表</a>
-                    <Table ref='table' rowKey={(r,i)=>(i)} scroll={{x:false,y:'17rem'}} dataSource={dataSource} pagination={false} columns={this.columns} title={null} bordered={true} style={{marginTop:'1rem'}} />
+                    <Table ref='table' rowKey={(r,i)=>(i)} scroll={{x:false,y:'17rem'}} dataSource={dataSource} pagination={false} columns={this.columns} title={null} bordered={true} style={{marginTop:'1rem'}} onChange={this.handelSortChange}/>
                 </div>
             </div>
         )
@@ -35,12 +41,30 @@ export default class InfosDetail extends Component{
     componentWillUnmount(){
         clearInterval(this.timer);
     }
+    handelSortChange = (pagination, filters, sorter)=>{
+        console.log(sorter);
+        if(sorter.order==='descend'){
+            this.setState({
+                sorter:'descend'
+            })
+        }else{
+            this.setState({
+                sorter:false
+            })
+        }
+    }
     downloadExcel = () =>{
         const { dataSource } = this.props;
+        let {sorter} = this.state;
+        let dataSourcex = dataSource;
+        if(sorter==='descend'){
+            dataSourcex.sort(function(a,b){return b['download'] > a['download'] ? 1 : -1 });
+        }
+        console.dir(dataSourcex)
         // var option={};
         // let dataTable = [];
-        // if (dataSource.length>0) {
-        //     dataSource.map((item,i)=>{
+        // if (dataSourcex.length>0) {
+        //     dataSourcex.map((item,i)=>{
         //         let obj = {
         //             '本地IP':item.sip,
         //             '本地端口':item.sport,
@@ -67,9 +91,9 @@ export default class InfosDetail extends Component{
 
         // 导出txt
         let dataTable = `本地IP|本地端口|远端IP|远端端口|协议|状态|上行速率|下行速率|上行流量|下行流量\r\n`;
-        if (dataSource.length>0) {
-            dataSource.map((item,i)=>{
-                let obj = `${item.sip}|${item.sport}|${item.dip}|${item.dport}|${item.proto}|${item.ste}|${item.rupload}|${item.rdownload}|${item.upload}|${item.download}\r\n`;
+        if (dataSourcex.length>0) {
+            dataSourcex.map((item,i)=>{
+                let obj = `${item.sip}|${item.sport}|${item.dip}|${item.dport}|${item.proto}|${item.ste}|${Unitconversion(item.rupload)}|${Unitconversion(item.rdownload)}|${Unitconversion(item.upload)}|${Unitconversion(item.download)}\r\n`;
 
                 dataTable+=obj;
             });
@@ -119,7 +143,6 @@ export default class InfosDetail extends Component{
         dataIndex: 'upload',
         key: 'upload',
         width:'5rem',
-        sorter: (a, b) => a.upload - b.upload,
         render:(text, record)=>{
             return Unitconversion(text);
         }
@@ -158,7 +181,8 @@ function Unitconversion(limit){
     limit = parseInt(limit);
     var size = "";
     if(limit < 0.1 * 1024){                            //小于0.1KB，则转化成B
-        size = limit.toFixed(2) + "B"
+        // size = limit.toFixed(2) + "B"
+        size = (limit/1024).toFixed(2) + "KB"
     }else if(limit < 0.1 * 1024 * 1024){            //小于0.1MB，则转化成KB
         size = (limit/1024).toFixed(2) + "KB"
     }else if(limit < 0.1 * 1024 * 1024 * 1024){        //小于0.1GB，则转化成MB

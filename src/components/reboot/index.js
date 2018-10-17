@@ -1,15 +1,10 @@
 import React,{Component} from "react";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {Modal,message,notification,Progress} from "antd";
+import {} from "./action";
 import axios from "axios";
-const confirm = Modal.confirm;
-@connect(
-    state=>({source:state.source}),
-    dispatch=>bindActionCreators({},dispatch)
-)
+import {Modal,message,Button,Progress,notification} from 'antd';
+const {confirm} = Modal;
 
-export default class SystemToolsRestartRouter extends Component{
+export default class Reboot extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -21,10 +16,9 @@ export default class SystemToolsRestartRouter extends Component{
     render(){
         let {process_status,process_percent,process_visable} = this.state;
         return(
-            <div className="col">
-                <img style={{width:'0.9333333333333324rem',height:'0.9333333333333324rem'}} src={require('../../img/systemtools/icon_restart.png')}/>
-                <h2>重启路由：</h2>
-                <a className="btn" onClick={()=>this.showConfirm(this)} >立即重启</a>
+            <p className='component_reboot'>
+                您当前的配置修改，需要设备重启后才能生效！
+                <Button type={'primary'} onClick={()=>this.reboot()}>立即重启</Button>
                 <Modal
                     className="modal_process"
                     title={<h2 style={{color:'#5FC7CE',fontSize:'14px',textAlign:'center'}}>正在重启路由器……</h2>}
@@ -35,11 +29,12 @@ export default class SystemToolsRestartRouter extends Component{
                 >
                     <Progress status={process_status} percent={process_percent}/>
                 </Modal>
-            </div>
+            </p>
         )
     }
-    showConfirm(_this){
-        let {process_percent} = _this.state;
+    reboot(){
+        let {process_percent} = this.state;
+        let _this = this;
         confirm({
             className:'confirm',
             title: '确认重启？',
@@ -51,6 +46,9 @@ export default class SystemToolsRestartRouter extends Component{
                     url:'/api/system/reboot',
                 }).then(data=>{
                     // message.warn('正在重启,请等待路由器重启完毕');
+                    // if(!data){
+                    //     return;
+                    // }
                     sessionStorage.removeItem('userinfo');
                     sessionStorage.removeItem('reboot');
                     _this.setState({
@@ -59,7 +57,7 @@ export default class SystemToolsRestartRouter extends Component{
                     let time = 0;
                     let timer = setInterval(()=>{
                         time++;
-                        if(time>=80){
+                        if(time>=120){
                             clearInterval(timer);
                             _this.setState({
                                 process_percent:100,
@@ -85,11 +83,12 @@ export default class SystemToolsRestartRouter extends Component{
                                 message.success('重启成功，请重新登录！');
                                 setTimeout(() => {
                                     notification.close('reboot');
-                                    window.location.href='/#/login';
+                                    window.location.href='/#/login';                                
                                 }, 200);
                                 return;
                             }).catch(err=>{
-                                console.log(err);
+                                // console.dir(err);
+                                return;
                             });
                         }
                         process_percent=Number((time/80*100).toFixed(1));
@@ -97,9 +96,6 @@ export default class SystemToolsRestartRouter extends Component{
                             process_percent
                         });
                     },1000)
-                }).catch(err=>{
-                    console.log(err);
-                    message.error(err.message);
                 })
             },
             onCancel() {
@@ -107,3 +103,4 @@ export default class SystemToolsRestartRouter extends Component{
         });
     }
 }
+

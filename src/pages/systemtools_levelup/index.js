@@ -35,7 +35,7 @@ export default class SystemToolsChangePsw extends Component{
             <div className="col">
                 <img style={{width:'0.7999999999999992rem',height:'1.066666666666666rem'}} src={require('../../img/systemtools/icon_lvup.png')}/>
                 <h2>固件升级：</h2>
-                <a onClick={showModal_Levelup} className="btn">升级固件</a>
+                <a onClick={showModal_Levelup} className="btn">立即升级</a>
                 <Modal
                     maskClosable={false}
                     className="modal_levelup"
@@ -59,6 +59,7 @@ export default class SystemToolsChangePsw extends Component{
                     </Dragger>
                 </Modal>
                 <Modal
+                    className="modal_process"
                     title={<h2 style={{color:'#5FC7CE',fontSize:'14px',textAlign:'center'}}>固件升级中，请勿关闭或重启路由器……</h2>}
                     visible={process_visable}
                     footer={null}
@@ -98,7 +99,7 @@ export default class SystemToolsChangePsw extends Component{
         _this.setState({ fileList });
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+        // console.log(nextProps);
         if(nextProps.levelup){
             let {process_percent} = this.state;
             this.setState({
@@ -117,7 +118,7 @@ export default class SystemToolsChangePsw extends Component{
                     message.warn('连接超时，请重新登录！');
                     sessionStorage.removeItem('userinfo');
                     setTimeout(() => {
-                        window.location.href='/login'
+                        window.location.href='/#/login';
                     }, 200);
                     return;
                 }else if(time>=50){
@@ -132,7 +133,7 @@ export default class SystemToolsChangePsw extends Component{
                         message.success('更新成功，请重新登录！');
                         sessionStorage.removeItem('userinfo');
                         setTimeout(() => {
-                            window.location.href='/login'
+                            window.location.href='/#/login';
                         }, 200);
                         return;
                     }).catch(err=>{

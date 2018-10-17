@@ -5,7 +5,8 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {login} from "./action";
 import axios from "axios";
-import {Spin} from 'antd';
+import {Spin,notification} from 'antd';
+import Reboot from "../../components/reboot";
 
 @connect(
     state=>({loginInfo:state.loginInfo,loading_login:state.loading_login}),
@@ -22,6 +23,8 @@ export default class Login extends Component{
     }
     render(){
         const {loading_login} = this.props;
+        // console.log(window.location)
+
         return(
             <div className="container">
                 <Header/>
@@ -65,15 +68,24 @@ export default class Login extends Component{
             password:value
         })
     }
-    componentDidMount(){
+    componentWillMount(){
         axios({url:'/api/usr/need_reboot'}).then(data=>{
             if(data.reboot){
                 sessionStorage.setItem('reboot',true);
+                setTimeout(() => {
+                    notification.open({
+                        duration:0,
+                        key:'reboot',
+                        placement:'topLeft',
+                        message: '您当前的配置修改，需要设备重启后才能生效！',
+                        description: (<Reboot/>),
+                    });
+                }, 500);
             }else{
                 sessionStorage.removeItem('reboot');
             };
         }).catch(err=>{
-            console.dir(err);
+            // console.log(err);
         });
     }
     componentWillReceiveProps(nextProps) {
@@ -88,10 +100,10 @@ export default class Login extends Component{
             axios.defaults.headers = Object.assign({},axios.defaults.headers,{token:nextProps.loginInfo.token});
 
             setTimeout(() => {
-                let RedirectUrl = nextProps.location.state
-                ? nextProps.location.state.from.pathname
-                : "/";
-                window.location.href=RedirectUrl;
+                // let RedirectUrl = nextProps.location.state? '/#/'+nextProps.location.state.from.pathname: "/";
+                let RedirectUrl = '/';
+                // console.log(RedirectUrl);
+                window.location.href = RedirectUrl;
             }, 200);
           } else {
    

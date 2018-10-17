@@ -48,7 +48,7 @@
     }
     .ww{
         align-items: center;
-        height: 5.02rem;
+        height: 4.52rem;
         &>div{
             .icon{
                 width: 1.776875rem;
@@ -80,7 +80,7 @@
     }
     .js{
         align-items: center;
-        height: 5.02rem;
+        height: 4.52rem;
         .icon{
             width: 1.51034375rem;
             height: 1.51034375rem;
@@ -108,7 +108,10 @@
         }
     }
     .wx{
-        margin-top: 1.78rem;
+        margin-top: 1.28rem;
+        &:not(:last-of-type){
+            padding-bottom: 1.28rem;
+        }
         &>div{
             align-items: flex-start;
             .ibox{
@@ -127,8 +130,12 @@
                     font-size: .62rem;
                     line-height: 1.33rem;
                     &.ssid{
-                        color: #8BF7FF;
+                        // color: #8BF7FF;
                         font-size: .71rem;
+                        &>span{
+                            display: inline-block;
+                            width: 2.2rem;
+                        }
                     }
                     &.ip{
                         display: flex;

@@ -10,7 +10,7 @@ export default function(state=initState,action={}){
     switch(type){
         // 获取当前外网配置
         case 'WANGET_SUCCESS':
-            return Object.assign({},state,{infos:payload,proto:payload.proto});
+            return Object.assign({},state,{infos:payload||state.infos,proto:payload.proto});
         case "WANGET_FAILED":
             return Object.assign({},state,{infos:state.infos});
         // 外网口设置

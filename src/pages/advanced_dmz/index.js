@@ -24,7 +24,7 @@ export default class Dmz extends Component{
         return(
             <div className="dmz">
                 <h2 className="title">DMZ主机</h2>
-                <Spin style={{top:'0%'}} spinning={loading} size='large' tip="Loading...">
+                <Spin spinning={loading} size='large' tip="Loading...">
 
                 <form onSubmit={(event)=>this.handleSubmit(event)}>
                     <div className="input-group">

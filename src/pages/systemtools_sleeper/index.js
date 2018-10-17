@@ -7,7 +7,7 @@ import moment from 'moment';
 const Option = Select.Option;
 
 @connect(
-    state=>({visible_sleeper:state.systemtools.visible_sleeper,loading_sleeper:state.systemtools.loading_sleeper,infos:state.systemtools.infos_sleeper}),
+    state=>({visible_sleeper:state.systemtools.visible_sleeper,loading_sleeper:state.systemtools.loading_sleeper,infos:state.systemtools.infos_sleeper,set_sleeper:state.systemtools.set_sleeper}),
     dispatch=>bindActionCreators({showModal_Sleeper,handleCancel_Sleeper,timeSet,timeGet},dispatch)
 )
 
@@ -24,21 +24,20 @@ export default class SystemToolsChangePsw extends Component{
     render(){
         const {showModal_Sleeper,handleCancel_Sleeper,visible_sleeper,loading_sleeper,infos} = this.props;
         let {enable,week,tm_hour,tm_min,} = this.state;
-        if(infos==undefined){
-            return(<div style={{color:'white',fontSize:'2rem'}}>连接错误</div>)
-        }
+        
         let tm = moment(infos.tm_hour+':'+infos.tm_min, 'HH:mm').format('HH:mm');
         
         return(
             <div className="col col-lg">
                 <img style={{width:'1.066666666666666rem',height:'1.066666666666666rem'}} src={require('../../img/systemtools/icon_sleeper.png')}/>                
-                <h2>定时重启/升级：<span style={{color:'#66ccff'}}>{enable?tm:'未开启'}</span></h2>
+                {/* <h2>定时重启/升级：<span style={{color:'#66ccff'}}>{enable!==null?enable?tm:'未开启':infos.enable?tm:'未开启'}</span></h2> */}
+                <h2>定时重启：<span style={{color:'#66ccff'}}>{infos.enable?tm:'未开启'}</span></h2>
                 <a onClick={showModal_Sleeper} className="btn">修改时间</a>
                 <Modal
                     maskClosable={false}
                     className="modal_sleeper"
                     visible={visible_sleeper}
-                    title={<h2 style={{color:'#5FC7CE',fontSize:'14px'}}>修改定时重启/升级时间</h2>}
+                    title={<h2 style={{color:'#5FC7CE',fontSize:'14px'}}>修改定时重启时间</h2>}
                     onOk={()=>this.handleSubmit(this)}
                     onCancel={handleCancel_Sleeper}
                     footer={[
@@ -53,7 +52,7 @@ export default class SystemToolsChangePsw extends Component{
                         <Switch name='enable' ref='enable' onChange={(value)=>this.handleenableChange(value)} checked={enable!==null?enable:infos.enable} />
                     </div>
                     <div className="input-group">
-                        <label>每天重启/升级时间：</label>
+                        <label>每天重启时间：</label>
                         <TimePicker name='tm' ref='tm' onChange={(value)=>this.handletmChange(value)} value={tm_hour!==null&&tm_min!==null?moment(tm_hour+':'+tm_min, 'HH:mm'):moment(infos.tm_hour+':'+infos.tm_min, 'HH:mm')} minuteStep={10} format={'HH:mm'} />
                     </div>
                     <div className="input-group">
@@ -105,7 +104,10 @@ export default class SystemToolsChangePsw extends Component{
         })
     }
     handletmChange(value){
-        value =value.format('HH:mm');
+        if(!value){
+            return;
+        }
+        value = value.format('HH:mm');
         // console.log(value);
         value = value.split(':');
         let tm_hour = value[0],
@@ -126,5 +128,11 @@ export default class SystemToolsChangePsw extends Component{
     componentDidMount(){
         const {timeGet} = this.props;
         timeGet();
+    }
+    componentWillReceiveProps(nextProps){
+        const {timeGet} = this.props;
+        if(nextProps.set_sleeper){
+            timeGet();
+        }
     }
 }

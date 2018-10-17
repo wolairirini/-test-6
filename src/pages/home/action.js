@@ -43,7 +43,7 @@ export function get_lan_status(){
         return axios({
             url:'/api/lan/get_status',
         }).then(data=>{
-            console.log(data)
+            // console.log(data)
             dispatch({
                 type:'GETLANSTATUS_SUCCESS',
                 payload:data
@@ -52,6 +52,26 @@ export function get_lan_status(){
             // console.log(err)
             dispatch({
                 type:'GETLANSTATUS_FAILED'
+            })
+        })
+    }
+}
+
+// 获取系统信息
+export function get_system_status(){
+    return (dispatch)=>{
+        return axios({
+            url:'/api/system/get_status',
+        }).then(data=>{
+            // console.log(data)
+            dispatch({
+                type:'GETSYSTEMSTATUS_SUCCESS',
+                payload:data
+            })
+        }).catch(err=>{
+            // console.log(err)
+            dispatch({
+                type:'GETSYSTEMSTATUS_FAILED'
             })
         })
     }

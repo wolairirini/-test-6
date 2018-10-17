@@ -24,8 +24,8 @@ export default class SystemToolsChangePsw extends Component{
         return(
             <div className="col">
             <img style={{width:'0.888888888888888rem',height:'1.022222222222221rem'}} src={require('../../img/systemtools/icon_psw.png')} />
-            <h2>登录密码：</h2>
-            <a className="btn" onClick={showModal_ChangePsw} >修改密码</a>
+            <h2>修改登录密码：</h2>
+            <a className="btn" onClick={showModal_ChangePsw} >立即修改</a>
             <Modal
                 maskClosable={false}
                 className="modal_changepsw"

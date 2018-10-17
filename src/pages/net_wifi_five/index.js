@@ -35,7 +35,7 @@ export default class NetWifiFive extends Component{
         }
 
         return(
-            <Spin style={{top:'0%'}} spinning={loading} size='large' tip="Loading...">
+            <Spin spinning={loading} size='large' tip="Loading...">
             <form onSubmit={(event)=>this.handleSubmit(event)}>
                 <div className="input-group">
                     <label>5G SSID：</label>

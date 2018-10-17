@@ -40,7 +40,7 @@ export default class NetOutsideStatic extends Component{
             infosx = Object.assign({},{mtu:infos.mtu,macaddr:infos.macaddr});
         }
         return(
-            <Spin style={{top:'0%'}} spinning={loading} size='large' tip="Loading...">
+            <Spin spinning={loading} size='large' tip="Loading...">
 
             <form onSubmit={(event)=>this.handleSubmit(event)}>
                 <div className="input-group">
@@ -116,6 +116,10 @@ export default class NetOutsideStatic extends Component{
             this.setState({
                 check_dns0,check_dns1,check_macaddr,check_mtu,check_ipaddr,check_netmask,check_gateway
             })
+            return;
+        }
+        if(!isEqualIPAddress(ipaddr,gateway,netmask)){
+            message.warn('ip地址不在同一个网段！');
             return;
         }
         
@@ -214,5 +218,25 @@ export default class NetOutsideStatic extends Component{
             macaddr:value,
             check_macaddr
         })
+    }
+}
+
+
+function isEqualIPAddress (addr1,addr2,mask){
+    var res1 = [],
+    res2 = [];
+    addr1 = addr1.split(".");
+    addr2 = addr2.split(".");
+    mask  = mask.split(".");
+    for(var i = 0,ilen = addr1.length; i < ilen ; i += 1){
+        res1.push(parseInt(addr1[i]) & parseInt(mask[i]));
+        res2.push(parseInt(addr2[i]) & parseInt(mask[i]));
+    }
+    if(res1.join(".") == res2.join(".")){
+        console.log("在同一个网段");
+        return true;
+    }else{
+        console.log("不在同一个网段");
+        return false;
     }
 }
