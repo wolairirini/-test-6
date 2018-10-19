@@ -42,13 +42,13 @@ export default class NetOutsideBroadband extends Component{
 
             <form onSubmit={(event)=>this.handleSubmit(event)}>
                 <div className="input-group">
-                    <label>宽带账号用户名：</label>
+                    <label>宽带账号：</label>
                     <input required name='username' ref='username' onChange={(e)=>this.handleUsernameChange(e.target.value)} value={username!==null?username:infosx.username} type="text" />
                     <span className='icon'>*</span>
                     <p style={{display:check_username?'block':'none'}} className='alert'>用户名限制在64个字符以内</p>
                 </div>
                 <div className="input-group">
-                    <label>宽带拨号密码：</label>
+                    <label>宽带密码：</label>
                     <input required name='password' ref='password' onChange={(e)=>this.handlePasswordChange(e.target.value)} value={password!==null?password:infosx.password} type="password" />
                     <span className='icon'>*</span>
                     <p style={{display:check_password?'block':'none'}} className='alert'>密码限制在32个字符以内</p>

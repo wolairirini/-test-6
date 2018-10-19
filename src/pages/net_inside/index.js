@@ -80,7 +80,7 @@ export default class NetOutside extends Component{
             <Spin spinning={loading} size='large' tip="Loading...">
 
             <div className="net_inside">
-                <h2 className="title">内网设置</h2>
+                <h2 className="title">LAN口设置</h2>
                 <form onSubmit={(event)=>this.handleSubmit(event)}>
                     <div className="input-group">
                         <label>IP地址：</label>

@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {} from "react-router-dom";
 import Header from "../header";
+import Footer from "../footer";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {login} from "./action";
@@ -50,6 +51,8 @@ export default class Login extends Component{
                         </div>
                     </form>
                 </Spin>
+                <div style={{marginTop:'5rem'}}></div>
+                <Footer/>
             </div>
         )
     }
@@ -68,7 +71,7 @@ export default class Login extends Component{
             password:value
         })
     }
-    componentWillMount(){
+    componentDidMount(){
         axios({url:'/api/usr/need_reboot'}).then(data=>{
             if(data.reboot){
                 sessionStorage.setItem('reboot',true);
@@ -83,6 +86,7 @@ export default class Login extends Component{
                 }, 500);
             }else{
                 sessionStorage.removeItem('reboot');
+                notification.close('reboot');
             };
         }).catch(err=>{
             // console.log(err);

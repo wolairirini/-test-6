@@ -17,6 +17,9 @@
                 align-items: center;
                 width: 8rem;
             }
+            .ibox_d{
+                width: 3rem;
+            }
             .title{
                 font-size: .89rem;
                 color: #EAEAEA;
@@ -30,7 +33,7 @@
                 align-items: center;
                 &.error{
                     p{
-                        color: #ff1f1f;
+                        color: @color_error;
                     }
                 }
                 p{
@@ -38,6 +41,7 @@
                     color: #EAEAEA;
                 }
                 span.show{
+                    color: @color_error;
                     display: block;
                 }
                 span.hide{
@@ -45,6 +49,40 @@
                 }
             }
         }
+    }
+    .port{
+        height: 4.52rem;
+        &>div{
+            .icon{
+                width: 1.555555555555554rem;
+                height: 1.555555555555554rem;
+            }
+            .content{
+                box-sizing: border-box;
+                padding-right: 5rem;
+                li{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    opacity: .5;
+                    &.active{
+                        opacity: 1;
+                    }
+                    &:not(:first-of-type){
+                        margin-left: 3rem;
+                    }
+                    img{
+                        width: 1.377777777777776rem;
+                        height: 1.244444444444443rem;
+                    }
+                    p{
+                        margin-top: .1rem;
+                        color: @color_main;
+                    }
+                }
+            }
+        }
+        
     }
     .ww{
         align-items: center;
@@ -57,25 +95,27 @@
             .content{
                 p{
                     text-align: left!important;
-                    width: 8.5rem;
+                    width: 8.7rem;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     &:not(:first-of-type){
-                        margin-left: 1rem;
+                        margin-left: -1rem;
                     }
                 }
             }
-        }
-        .img_box{
-            width: 5.77484375rem;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            .status{
-                margin-right: .1rem;
+            &>span{
+                display: flex;
+                align-items: center;
+                img{}
+                a{
+                    color: @color_main;
+                    text-decoration: underline!important;
+                    font-size: .67rem;
+                }
             }
         }
+            
         
     }
     .js{
@@ -86,24 +126,24 @@
             height: 1.51034375rem;
         }
         .content{
-            p:not(:last-of-type){
-                margin-right: 1.91rem;
+            p{
+                width: 8.7rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                &:not(:first-of-type){
+                    margin-left: 2rem;
+                }
             }
         }
-        .btn{
-            color: #8BF7FF;
+        &>span{
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: .71rem;
-            width: 5.77484375rem;
-            height: 2.265515625rem;
-            background-image: url(../../img/index/btn_detail.png);
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            transition: all .2s;
-            &:hover{
-                background-image: url(../../img/index/btn_detail_active.png);
+            img{}
+            a{
+                color: @color_main;
+                text-decoration: underline!important;
+                font-size: .67rem;
             }
         }
     }
@@ -124,34 +164,49 @@
                 }
             }
             ul{
+                width: 100%;
                 box-sizing: border-box;
                 li{
                     color: #EAEAEA;
                     font-size: .62rem;
                     line-height: 1.33rem;
-                    &.ssid{
-                        // color: #8BF7FF;
+                    display: flex;
+                    align-items: center;
+                    p{
+                        // color: @color_main;
                         font-size: .71rem;
+                        text-align: left!important;
+                        width: 8.7rem;
+                        // overflow: hidden;
+                        // text-overflow: ellipsis;
+                        white-space: nowrap;
+                        &:not(:first-of-type){
+                            margin-left: 2rem;
+                        }
                         &>span{
+                            &:not(:first-of-type){
+                                margin-left: 1rem;
+                            }
                             display: inline-block;
-                            width: 2.2rem;
+                            // width: rem;
                         }
                     }
-                    &.ip{
+                    &>div{
                         display: flex;
-                        align-items: center;
-                        span{
-                            margin-left: 1.91rem;
+                        flex:1;
+                        justify-content: flex-end;
+                        .wx_link{
                             display: flex;
                             align-items: center;
                             img{}
                             a{
-                                color: #8BF7FF;
+                                color: @color_main;
                                 text-decoration: underline!important;
                                 font-size: .67rem;
                             }
                         }
                     }
+                    
                 }
             }
         }

@@ -39,12 +39,12 @@ export default class NetWifi extends Component{
         }
         return(
             <div className="net_wifi">
-                <h2 className="title">无线设置</h2>
+                <h2 className="title">WIFI设置</h2>
                 <div className="input-group">
                     <label>设置：</label>
                     <div className="types">
-                        <a href="javascript:void(0)" onClick={()=>this.chooseType('half')} className={proto_check=='half'?'active':''} ><input readOnly checked={proto_check=='half'?true:false} type="checkbox"/>无线2.4G</a>
-                        <a href="javascript:void(0)" onClick={()=>this.chooseType('five')} className={proto_check=='five'?'active':''} ><input readOnly checked={proto_check=='five'?true:false} type="checkbox"/>无线5G</a>
+                        <a href="javascript:void(0)" onClick={()=>this.chooseType('half')} className={proto_check=='half'?'active':''} ><input readOnly checked={proto_check=='half'?true:false} type="checkbox"/>2.4G&nbsp;WIFI</a>
+                        <a href="javascript:void(0)" onClick={()=>this.chooseType('five')} className={proto_check=='five'?'active':''} ><input readOnly checked={proto_check=='five'?true:false} type="checkbox"/>5G&nbsp;WIFI</a>
                     </div>
                 </div>
                 {

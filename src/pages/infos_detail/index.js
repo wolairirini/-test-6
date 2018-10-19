@@ -22,7 +22,7 @@ export default class InfosDetail extends Component{
         // console.log(this.columns)
         return(
             <div className="infos infos_detail">
-                <h2 className="title">{global.phone_name}&nbsp;—&nbsp;{this.props.match.params.ip}</h2>
+                <h2 className="title">{sessionStorage.getItem('phone_name')}&nbsp;—&nbsp;{this.props.match.params.ip}</h2>
                 <div className="article">
                     <a onClick={this.downloadExcel} href='javascript:;' className='download-table-xls-button'>导出报表</a>
                     <Table ref='table' rowKey={(r,i)=>(i)} scroll={{x:false,y:'17rem'}} dataSource={dataSource} pagination={false} columns={this.columns} title={null} bordered={true} style={{marginTop:'1rem'}} onChange={this.handelSortChange}/>
@@ -60,6 +60,7 @@ export default class InfosDetail extends Component{
         if(sorter==='descend'){
             dataSourcex.sort(function(a,b){return b['download'] > a['download'] ? 1 : -1 });
         }
+        
         console.dir(dataSourcex)
         // var option={};
         // let dataTable = [];
@@ -99,7 +100,7 @@ export default class InfosDetail extends Component{
             });
 
         };
-        exportRaw('加速详情_'+this.props.match.params.ip+'.txt', dataTable)
+        exportRaw('加速详情_'+this.props.match.params.ip+'.txt', dataTable);
 
     }
 
@@ -170,7 +171,10 @@ function fakeClick(obj) {
 function exportRaw(name, data) {
     var urlObject = window.URL || window.webkitURL || window;
     var export_blob = new Blob([data]);
-    var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+    var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(export_blob, name);
+    }
     save_link.href = urlObject.createObjectURL(export_blob);
     save_link.download = name;
     fakeClick(save_link);

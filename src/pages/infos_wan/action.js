@@ -1,44 +1,44 @@
 import axios from 'axios';
 import {message} from 'antd';
-
-// 获取数据
-export function get_infos_ip(){
+// 获取内网口信息
+export function lanGet(){
     return (dispatch)=>{
         return axios({
-            url:'/api/sta/get',
+            url:'/api/lan/get',
         }).then(data=>{
+            // console.log(data);
             dispatch({
-                type:'GETINFOSIP_SUCCESS',
-                payload:Array.isArray(data)?data:[]
+                type:'LANGET_SUCCESS',
+                payload:data
             })
         }).catch(err=>{
             dispatch({
-                type:'GETINFOSIP_FAILED'
-            })
+                type:'LANGET_FAILED'
+            });
         })
     }
 }
 
-//修改设备名
-export function set_infos_ip(data){
+//内网口设置
+export function lanSet(data){
     console.log(data)
     return (dispatch)=>{
         dispatch({
-            type:'SETINFOSIP_PENDING'
+            type:'LANSET_PENDING'
         })
         return axios({
-            url:'/api/sta/update',
+            url:'/api/lan/set',
             method:'post',
             data:data
         }).then(data=>{
             message.success('设置成功');
             dispatch({
-                type:'SETINFOSIP_SUCCESS'
+                type:'LANSET_SUCCESS'
             })
         }).catch(err=>{
             // console.log(err)
             dispatch({
-                type:'SETINFOSIP_FAILED'
+                type:'LANSET_FAILED'
             });
             message.error(err.message);
         })

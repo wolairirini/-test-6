@@ -14,7 +14,7 @@ export default class SideIndex extends Component{
                 <div className="bottom">
                     <h2 className="title">加速方法二：</h2>
                     <p className="describe">下载极迅路由PC端&nbsp;<a href="javascript:void(0)">开启加速</a></p>
-                    <a className="btn">立即下载</a>
+                    <a className="btn" href='https://www.jixunjsq.com/download/JiXunlyq.rar' >立即下载</a>
                 </div>
             </div>
         )

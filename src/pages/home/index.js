@@ -1,12 +1,10 @@
 import React,{Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import { Modal,Button,} from 'antd';
 import {Link} from 'react-router-dom';
-import img_safe from '../../img/index/safe.png';
-import img_danger from '../../img/index/danger.png';
 import {get_wan_status,get_svpn_status,get_lan_status,get_system_status} from "./action";
-
+import img_port_active from '../../img/index/port_active.png';
+import img_eye from '../../img/index/eye.png';
 @connect(
     state=>({connected:state.home.connected,data:state.home.data,data_lan:state.home.data_lan,data_svpn:state.home.data_svpn,data_system:state.home.data_system}),
     dispatch=>bindActionCreators({get_wan_status,get_lan_status,get_svpn_status,get_system_status},dispatch)
@@ -29,73 +27,96 @@ export default class Home extends Component{
                 <div className="ww">
                     <div>
                         <div className='icon_box'>
-                            <img className="icon" src={require('../../img/index/icon_ww.png')}/>
+                            <div className='ibox_d'>
+                                <img className="icon" src={require('../../img/index/icon_ww.png')}/>
+                            </div>
                             <h2 className="title">外网信息</h2>
                         </div>
                         <div className={!connected?'content error':'content'} style={{position:'relative'}}>
-                            <p title={data.ipaddr}>外网ip：{data.ipaddr}</p>
+                            <p title={data.ipaddr}>WAN口IP：{data.ipaddr}</p>
                             <p title={data.dns?data.dns.length>0?data.dns[0]:'':''}>DNS：{data.dns?data.dns.length>0?data.dns[0]:'':''}</p>
-                            <p title={data.proto}>协议类型：{data.proto==='dhcp'?'自动获取':data.proto==='pppoe'?'宽带拨号':data.proto==='static'?'静态地址':''}</p>
-                            <span className={!connected?'show':'hide'} style={{position:'absolute',left:0,top:'1.2rem',color:'#ff1f1f',fontSize:'.62rem'}}>{data.detail}</span>
+                            <p className="xy" title={data.proto}>协议类型：{data.proto==='dhcp'?'自动获取':data.proto==='pppoe'?'宽带拨号':data.proto==='static'?'静态地址':''}</p>
+                            <span className={!connected?'show':'hide'} style={{position:'absolute',left:0,top:'1.2rem',color:'@color_error',fontSize:'.62rem'}}>{data.detail}</span>
                         </div>
+                        <span className='wx_link'><img src={img_eye}/><Link to="/infos/wan">查看详情</Link></span>
                     </div>
-                    <b className="img_box">
-                        <img className="status" src={!connected?img_danger:img_safe} />
-                    </b>
+                </div>
+                <div className="wx">
+                    <div>
+                        <div className="ibox">
+                            <div className='ibox_d'>
+                                <img className="icon" src={require('../../img/index/icon_wx.png')}/>
+                            </div>
+                            <h2 className="title">内网信息</h2>
+                        </div>
+                        <ul>
+                            <li className="ssid"><p><span>2.4G SSID：</span>{data_lan?data_lan.ssid_24g:''}</p><p><span>5G SSID：</span>{data_lan?data_lan.ssid_5g:''}</p></li>
+                            <li className='ip'><p>DHCP容量：{data_lan?data_lan.limit:''}</p><p>已连终端数：{data_lan?data_lan.lease_num:''}</p><div><span className='wx_link'><img src={img_eye}/><Link to="/infos/ip">查看详情</Link></span></div></li>
+                            <li><p>LAN口IP地址：{data_lan?data_lan.ipaddr:''}</p></li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="js">
                     <div>
                         <div className='icon_box'>
-                            <img className="icon" src={require('../../img/index/icon_js.png')}/>
-                            <h2 className="title">加速信息</h2>
+                            <div className='ibox_d'>
+                                <img className="icon" src={require('../../img/index/icon_js.png')}/>
+                            </div>
+                            <h2 className="title">游戏加速</h2>
                         </div>
                         <div className="content">
-                            <p>开启状态：{data_svpn.running?'已开启':'未开启'}</p>
+                            <p>加速状态：{data_svpn.running?'已开启':'未开启'}</p>
                             <p>当前线路：{data_svpn.line}</p>
                         </div>
                     </div>
-                    <a className="btn" onClick={this.showModal}>查看详情</a>
-                    <Modal
-                        title="Basic Modal"
-                        visible={this.state.visible}
-                        onOk={this.handleOk}
-                        onCancel={this.handleCancel}
-                        footer={[
-                            <Button key="submit" type="primary" onClick={this.handleOk}>确定</Button>,
-                            <Button key="back" onClick={this.handleCancel}>取消</Button>,
-                          ]}
-                        >
-                        <p>Some contents...</p>
-                        <p>Some contents...</p>
-                        <p>Some contents...</p>
-                    </Modal>
+                    <span><img src={img_eye}/><Link to="/infos/js">查看详情</Link></span>
                 </div>
                 <div className="wx">
                     <div>
                         <div className="ibox">
-                            <img className="icon" src={require('../../img/index/icon_wx.png')}/>
-                            <h2 className="title">内网信息</h2>
-                        </div>
-                        <ul>
-                            <li className="ssid"><span>SSID：</span>{data_lan?data_lan.ssid_5g+'(5G),':''}</li>
-                            <li className="ssid"><span></span>{data_lan?data_lan.ssid_24g+'(2.4G)':''}</li>
-                            <li>内网IP地址：{data_lan?data_lan.ipaddr:''}</li>
-                            <li>DHCP容量：{data_lan?data_lan.limit:''}</li>
-                            <li className="ip">已联终端数：{data_lan?data_lan.lease_num:''}<span><img src={require('../../img/index/eye.png')}/><Link to="/infos/ip">查看详情</Link></span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="wx">
-                    <div>
-                        <div className="ibox">
-                            <img className="icon" style={{width:"1.688888888888887rem",height:"1.599999999999998rem"}} src={require('../../img/index/icon_sys.png')}/>
+                            <div className='ibox_d'>
+                                <img className="icon" style={{width:"1.688888888888887rem",height:"1.599999999999998rem"}} src={require('../../img/index/icon_sys.png')}/>
+                            </div>
                             <h2 className="title"> 系统信息</h2>
                         </div>
                         <ul>
-                            <li>LAN MAC地址：{data_system?data_system.lmac:''}</li>
+                            <li>LAN&nbsp;&nbsp; MAC地址：{data_system?data_system.lmac:''}</li>
                             <li>WAN MAC地址：{data_system?data_system.wmac:''}</li>
                             <li>系统时间：{system_time}</li>
                             <li>运行时间：{running_time}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="port">
+                    <div>
+                        <div className='icon_box'>
+                            <div className='ibox_d'>
+                                <img className="icon" src={require('../../img/index/icon_port.png')}/>
+                            </div>
+                            <h2 className="title">端口状态</h2>
+                        </div>
+                        <ul className="content">
+                            <li className="active">
+                                <img src={img_port_active}/>
+                                <p>WAN</p>
+                                <p>(1G)</p>
+                            </li>
+                            <li>
+                                <img src={img_port_active}/>
+                                <p>LAN1</p>
+                            </li>
+                            <li>
+                                <img src={img_port_active}/>
+                                <p>LAN2</p>
+                            </li>
+                            <li>
+                                <img src={img_port_active}/>
+                                <p>LAN3</p>
+                            </li>
+                            <li>
+                                <img src={img_port_active}/>
+                                <p>LAN4</p>
+                            </li>
                         </ul>
                     </div>
                 </div>

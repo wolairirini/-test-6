@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Switch,Route,Redirect} from "react-router-dom";
 import Header from "../header";
+import Footer from "../footer";
 import SideIndex from "../side_index";
 import SideOthers from "../side_others";
 import Home from "../home";
@@ -13,6 +14,8 @@ import StaticHost from "../advanced_static_host";
 import SystemTools from "../systemtools";
 import InfosIp from "../infos_ip";
 import InfosDetail from "../infos_detail";
+import InfosWan from "../infos_wan";
+import InfosJs from "../infos_js";
 
 export default class Layout extends Component{
     render(){
@@ -38,10 +41,13 @@ export default class Layout extends Component{
                             <Route path="/systemtools" component={SystemTools} />
                             <Route path="/infos/ip" component={InfosIp} />
                             <Route path="/infos/detail/:ip" component={InfosDetail} />
+                            <Route path="/infos/wan" component={InfosWan} />
+                            <Route path="/infos/js" component={InfosJs} />
                             <Redirect to='/'/>
                         </Switch>
                     </div>
                 </div>
+                <Footer/>
             </div>
         )
     }

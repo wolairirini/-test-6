@@ -1,29 +1,27 @@
 import React,{Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {Table,Button} from "antd";
-import {get_infos_ip} from "./action";
-// import {EditableCell,EditableFormRow} from "../../components/EditableCell";
+import {Table,Button,Switch} from "antd";
+import {get_infos_ip,set_infos_ip} from "./action";
+import {EditableCell,EditableFormRow} from "../../components/EditableCell";
+import {data_sort} from "../../components/functions";
 
 @connect(
-    state=>({dataSource:state.infos_ip.dataSource}),
-    dispatch=>bindActionCreators({get_infos_ip},dispatch)
+    state=>({dataSource:state.infos_ip.dataSource,loading:state.infos_ip.loading,ipset:state.infos_ip.ipset}),
+    dispatch=>bindActionCreators({get_infos_ip,set_infos_ip},dispatch)
 )
 
 export default class InfosIp extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            dataSourcex:[]
-        }
-    }
     render(){
-        const {dataSource} = this.props;
-        let {dataSourcex} = this.state;
+        const {loading,dataSource} = this.props;
+        // 筛选数据 
+        let dataSourcex = dataSource;
+        dataSourcex = data_sort(dataSourcex);
+
         const components = {
             body: {
-            //   row: EditableFormRow,
-            //   cell: EditableCell,
+              row: EditableFormRow,
+              cell: EditableCell,
             },
           };
         const columns = this.columns.map((col) => {
@@ -45,7 +43,7 @@ export default class InfosIp extends Component{
             <div className="infos">
                 <h2 className="title">终端详情</h2>
                 <div className="article">
-                    <Table components={components} rowSelection={this.rowSelection} rowKey={(r,i)=>(i)} scroll={{x:false,y:'19rem'}} dataSource={dataSourcex} columns={columns} title={null} bordered={true} pagination={false}/>
+                    <Table loading={loading} components={components} rowClassName={this.setClassName} rowKey={(r,i)=>(i)} scroll={{x:false,y:'19rem'}} dataSource={dataSourcex} columns={columns} title={null} bordered={true} pagination={false}/>
                 </div>
             </div>
         )
@@ -55,33 +53,70 @@ export default class InfosIp extends Component{
         get_infos_ip();
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.dataSource.length>0){
-            console.log(this.state);
-            this.setState({
-                dataSourcex:nextProps.dataSource
-            })
+        const {get_infos_ip} = this.props;
+        if(nextProps.ipset){
+            get_infos_ip();
         }
     }
+    setClassName=(record)=>{
+        return record.online?'':'offline'
+    }
     handleSave = (row) => {
-        const newData = [...this.state.dataSource];
-        const index = newData.findIndex(item => row.key === item.key);
+        const {set_infos_ip,dataSource} = this.props;
+        if (!!window.ActiveXObject || "ActiveXObject" in window){
+            let data = row;
+            set_infos_ip(data);
+            return;
+        }
+        const newData = dataSource;
+        const index = newData.findIndex(item => item.mac===row.mac);
         const item = newData[index];
         newData.splice(index, 1, {
           ...item,
           ...row,
         });
-        this.setState({ dataSourcex: newData });
-      }
-    // 设置选择
-    rowSelection = {
-        columnTitle:'开放NAT',
-        fixed:true,
-        type:'radio',
-        // onSelect:()=>alert(2)
+        if(row.name===item.name){
+            return;
+        }
+        let data = row;
+        set_infos_ip(data);
     }
 
+    handleSwitchChange = (value,record)=>{
+        // console.log(value,record);
+        const {set_infos_ip} = this.props;
+        let data = {boost:value};
+        data = Object.assign({},record,data)
+        set_infos_ip(data);
+    }
+    handleNatChange = (value,record)=>{
+        const {set_infos_ip} = this.props;
+        let data = {dmz:value};
+        data = Object.assign({},record,data)
+        set_infos_ip(data);
+    }
     // 设置列
     columns = [{
+        title: '加速开关',
+        dataIndex: 'switch',
+        key: 'switch',
+        width:'4rem',
+        render:(text,record,index)=>{
+            return (
+                <Switch checked={record.boost} onChange={(value)=>this.handleSwitchChange(value,record)}/>
+            )
+        },
+      },{
+        title: '开放NAT',
+        dataIndex: 'dmz',
+        key: 'dmz',
+        width:"4rem",
+        render:(text,record)=>{
+            return (
+                <Switch disabled={!record.boost} checked={record.dmz} onChange={(value)=>this.handleNatChange(value,record)}/>
+            )
+        }
+      },{
         title: '设备名',
         dataIndex: 'name',
         key: 'name',
@@ -95,13 +130,18 @@ export default class InfosIp extends Component{
         title: 'IP地址',
         dataIndex: 'ip',
         key: 'ip',
-        width:'6.5rem',
+        width:'6rem',
       },{
-        title: '操作',
+        title: '全部链接',
         dataIndex: 'action',
         key: 'action',
-        width:'7rem',
-        render:(text,record)=>{
+        width:'6rem',
+        render:(text,record,index)=>{
+            // console.log(record)
+
+            if(!record.online){
+                return(<div>——</div>)
+            }
             return (
                 <div>
                     {/* <Button>禁止访问</Button>
@@ -109,12 +149,14 @@ export default class InfosIp extends Component{
                     <Button onClick={()=>{
                         // console.log(record);
                         // return 
-                        global.phone_name = record.name;
-                        this.props.history.push({pathname:'/infos/detail/'+record['ip']})
-                    }}>查看网络链接</Button>
+                        sessionStorage.setItem('phone_name',record.name);
+                        sessionStorage.setItem('infos_detail','ip');
+                        this.props.history.push({pathname:'/infos/detail/'+record['ip']});
+                    }}>查看链接</Button>
                 </div>
             )
         }
     }]
-
 }
+
+

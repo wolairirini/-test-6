@@ -91,7 +91,7 @@ export default class Reboot extends Component{
                                 return;
                             });
                         }
-                        process_percent=Number((time/80*100).toFixed(1));
+                        process_percent=Number((time/120*100).toFixed(1));
                         _this.setState({
                             process_percent
                         });

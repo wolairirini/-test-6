@@ -59,7 +59,7 @@ export default class SystemToolsRestartRouter extends Component{
                     let time = 0;
                     let timer = setInterval(()=>{
                         time++;
-                        if(time>=80){
+                        if(time>=120){
                             clearInterval(timer);
                             _this.setState({
                                 process_percent:100,
@@ -92,7 +92,7 @@ export default class SystemToolsRestartRouter extends Component{
                                 console.log(err);
                             });
                         }
-                        process_percent=Number((time/80*100).toFixed(1));
+                        process_percent=Number((time/120*100).toFixed(1));
                         _this.setState({
                             process_percent
                         });

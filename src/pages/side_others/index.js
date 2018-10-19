@@ -13,8 +13,7 @@ export default class SideOthers extends Component{
                 <div className="bottom">
                     <img className="icon" src={require('../../img/systemtools/time.png')}/>
                     <h2 className="title">工作时间：</h2>
-                    <p className="describe">周二~周五（9:30~22:00）</p>
-                    <p className="describe">周六~周一（14:30~22:00）</p>
+                    <p className="describe">周一~周日（9:30~22:00）</p>
                 </div>
             </div>
         )

@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Link} from "react-router-dom";
-import { Menu, Dropdown, Icon } from 'antd';
+import { Menu, Dropdown, Icon,Popover } from 'antd';
+import img_wx from '../../img/index/erweima.png';
 
 const networksettings = (
     <Menu style={{top:"1.12rem",display:'flex'}}>
@@ -11,7 +12,7 @@ const networksettings = (
         <Link to="/net/inside">LAN口设置</Link>
       </Menu.Item>
       <Menu.Item style={{height:'3rem',display:'flex',alignItems:'center',padding:'0 1rem'}} key="2">
-        <Link to="/net/wifi">无线设置</Link>
+        <Link to="/net/wifi">WIFI设置</Link>
       </Menu.Item>
     </Menu>
 );
@@ -63,13 +64,15 @@ export default class Header extends Component{
                     <li className="nav-item"><Link to="/systemtools" >系统工具</Link></li>
                 </ul>
                 <ul className="share">
-                    <li onMouseLeave={()=>{this.setState({active:''})}} onMouseEnter={()=>{this.setState({active:'weibo'})}} className="share-weibo">
-                        <img src={active==='weibo'?require('../../img/index/weibo_active.png'):require('../../img/index/weibo.png')}/>
-                        <div></div>
+                    <li className="share-weibo">
+                        <Popover placement="bottom" title={null} content={(<img src={img_wx} />)} trigger="click">
+                            <a href="javascript:;"></a>
+                        </Popover>
                     </li>
-                    <li onMouseLeave={()=>{this.setState({active:''})}} onMouseEnter={()=>{this.setState({active:'weixin'})}} className="share-weixin">
-                        <img src={active==='weixin'?require('../../img/index/weixin_active.png'):require('../../img/index/weixin.png')}/>
-                        <div></div>
+                    <li className="share-weixin">
+                        <Popover placement="bottom" title={null} content={(<img src={img_wx} />)} trigger="click">
+                            <a href="javascript:;"></a>
+                        </Popover>
                     </li>
                 </ul>
             </div>
